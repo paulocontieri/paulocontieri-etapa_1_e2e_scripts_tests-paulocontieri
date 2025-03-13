@@ -1,0 +1,55 @@
+📘 Projeto: BugBank - Testes Automatizados
+Este repositório tem como objetivo fornecer uma interface automatizada de testes E2E com Cypress, integrando relatórios visuais, execução via frontend e backend com ExpressJS.
+
+
+
+📁 Estrutura de Pastas
+├── cypress
+│   ├── e2e
+│   │   ├── login
+│   │   │   ├── login_email_invalido.cy.js
+│   │   │   ├── login_usuario_invalido.cy.js
+│   │   │   ├── login_usuario_valido.cy.js
+│   │   │   └── ... outros testes por tela/modulo
+│   ├── support
+│   │   ├── commands.js
+│   │   ├── elements
+│   │   │   ├── elements_login.js
+│   │   │   ├── elements_cadastro.js
+│   └── reports
+├── public
+│   ├── css/style.css
+│   ├── js
+│   ├── images
+│   └── video/demo.mp4
+├── index.html
+├── server.js
+└── cypress.config.js
+
+
+
+🧠 Organização dos Elements
+Todos os seletores estão em cypress/support/elements, separados por tela. Isso mantém reutilização, manutenção e legibilidade.
+✅ Ex: elements_login.js, elements_cadastro.js
+
+
+
+🚀 Execução dos Testes
+yarn install                            # instalar dependências
+yarn cypress open                      # interface Cypress
+yarn cypress run                       # headless CLI
+yarn cypress run --reporter mochawesome  # com relatório visual
+npm start                              # inicia o servidor backend (Express)
+
+
+
+💻 Interface Web (index.html)
+Listagem de módulos com botões de teste
+Status visual (em execução / sucesso)
+Campos: Data, Processo, Caminho, Testes
+Visualização de relatórios gerados (HTML)
+
+
+
+📂 Relatórios com Mochawesome
+Todos os relatórios gerados vão para cypress/reports/mochawesome.html e são servidos via backend na interface com links dinâmicos por rota.
