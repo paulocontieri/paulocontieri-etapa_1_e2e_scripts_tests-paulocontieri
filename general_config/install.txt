@@ -1,0 +1,8 @@
+install cypress ---
+
+yarn global add cypress;
+yarn run cypress open; -- with visual
+yarn run cypress; -- without visual
+
+
+Commands ---

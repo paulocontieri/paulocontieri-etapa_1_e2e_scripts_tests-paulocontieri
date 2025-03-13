@@ -1,0 +1,7 @@
+yarn cypress open /interface
+yarn cypress run /headless
+yarn cypress run --reporter mochawesome /with-graphics
+npm start -- roda o back
+-- separar elementos por tela
+-- automatizar para cada pessoa puder testar
+-- criar html

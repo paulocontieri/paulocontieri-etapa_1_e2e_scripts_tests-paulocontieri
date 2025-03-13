@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="images/logo.png" />
+    <title>Unifica - Testes Automatizados</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/6cae785c9a.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="js/bs_leftnavi.js"></script>
+  </head>
+
+  <body>
+    <header class="text-white text-left py-3">
+      <div class="row align-items-center" style="margin-top: -15px; margin-bottom: -15px">
+        <div class="col-md-5">
+          <h1 style="font-size: 22px; margin-left: 15px">Testes Automatizados</h1>
+        </div>
+        <div class="col-md-7 text-left">
+          <img src="images/logo.png" alt="Unifica Logo" width="150px" />
+        </div>
+      </div>
+    </header>
+
+    <div id="success-alert" class="success-alert">
+      <div class="row align-items-center">
+        <div class="col-md-4 text-center">
+          <img class="img-responsive sp-banner-icon" src="https://res.cdn.office.net/admincenter/admin-content/images/servicepulse/icon-check.png" alt="Ícone de Sucesso" />
+          <p style="font-size: 28px; font-family: Segoe UI Light, Sans-Serif; margin-bottom: 0px;">Tudo pronto!</p>
+          <p style="font-size: 14px; font-family: Segoe UI Semilight, Sans-Serif">Execute e visualize um teste automatizado.</p>
+        </div>
+        <div class="col-md-8">
+          <img class="image-alert" src="images/banner_up.png" alt="Status de Sucesso" />
+        </div>
+      </div>
+    </div>
+
+    <div class="container-body border-down">
+      <div class="row align-items-end">
+        <div class="col-md-3 text-left" style="font-size: 14px; color: #6a6a6a">Serviços</div>
+        <div class="col-md-7 text-left" style="font-size: 14px; color: #6a6a6a">Detalhes</div>
+        <div class="col-md-2 text-right" style="font-size: 14px; color: #6a6a6a">Última atualização: <span id="dataHoraAtual"></span></div>
+      </div>
+    </div>
+
+    <div class="container-body">
+      <div class="row">
+        <div class="col-md-3 border-right">
+          <ul class="gw-nav gw-nav-list">
+            <li class="init-arrow-down">
+              <a href="javascript:void(0)"><span class="gw-menu-text">Login</span> <b class="gw-arrow"></b></a>
+              <ul class="gw-submenu">
+                <li><a href="javascript:void(0)" onclick="testeLoginEmailInvalido('success-alert', 'Login - Email Inválido')">Login - Email Inválido</a></li>
+                <li><a href="javascript:void(0)" onclick="testeLoginUsuarioInvalido('success-alert', 'Login - Usuário Inválido')">Login - Usuário Inválido</a></li>
+              </ul>
+            </li>
+            <li class="init-arrow-down">
+              <a href="javascript:void(0)"><span class="gw-menu-text">Cadastro</span><b class="gw-arrow icon-arrow-up8"></b></a>
+              <ul class="gw-submenu">
+                <li><a href="javascript:void(0)">Menu 1</a></li>
+                <li><a href="javascript:void(0)">Menu 2</a></li>
+                <li><a href="javascript:void(0)">Menu 3</a></li>
+              </ul>
+            </li>
+            <li class="init-arrow-down">
+              <a href="javascript:void(0)"><span class="gw-menu-text">Extrato</span> <b></b></a>
+              <ul class="gw-submenu">
+                <li><a href="javascript:void(0)">Menu 1</a></li>
+                <li><a href="javascript:void(0)">Menu 2</a></li>
+                <li><a href="javascript:void(0)">Menu 3</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-md-9">
+          <form>
+            <div class="row mt-3">
+              <div class="col-md-4">
+                <input type="text" id="data" class="form-control" placeholder="Data" disabled />
+              </div>
+              <div class="col-md-4">
+                <input type="text" id="processo" class="form-control" placeholder="Processo" disabled />
+              </div>
+              <div class="col-md-4">
+                <input type="text" id="caminho" class="form-control" placeholder="Caminho" disabled />
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col">
+                <textarea class="form-control" id="testes" rows="3" placeholder="O que será testado" disabled></textarea>
+              </div>
+            </div>
+          </form>
+
+          <div id="loading-spinner" class="text-center my-4" style="display: none;">
+            <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+              <span class="sr-only">Executando...</span>
+            </div>
+            <p class="mt-2">Executando teste, por favor aguarde...</p>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 output-container"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function preencherCampos() {
+        const dataAtual = new Date().toLocaleDateString('pt-BR');
+        document.getElementById('data').value = dataAtual;
+        document.getElementById('caminho').value = 'cypress/e2e/login/';
+      }
+
+      function atualizarDataHora() {
+        const agora = new Date();
+        const opcoes = { timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit' };
+        const dataHoraFormatada = new Intl.DateTimeFormat('pt-BR', opcoes).format(agora);
+        document.getElementById('dataHoraAtual').innerText = dataHoraFormatada;
+      }
+
+      document.addEventListener("DOMContentLoaded", atualizarDataHora);
+
+      function executarTeste(alertId, testName, rota, processo, descricao) {
+        swal({ title: `Executar teste ${testName}?`, text: "Confirma a execução desse teste?", icon: "info", buttons: ["Cancelar", "Sim"] })
+        .then((willTest) => {
+          if (willTest) {
+            preencherCampos();
+            document.getElementById("processo").value = processo;
+            document.getElementById("testes").value = descricao;
+            document.getElementById("loading-spinner").style.display = "block";
+            document.querySelector(".output-container").innerHTML = "";
+
+            const outputContainer = document.querySelector(".output-container");
+
+            fetch(rota)
+              .then((response) => response.text())
+              .then((output) => {
+                outputContainer.innerHTML = `<pre>${output}</pre>`;
+                document.getElementById("loading-spinner").style.display = "none";
+              });
+
+            const testNameElement = document.getElementById("testName");
+            let pontos = 1;
+            setInterval(() => {
+              if (testNameElement) {
+                testNameElement.innerHTML = `O teste de <strong>${testName}</strong> está em andamento${".".repeat(pontos)}`;
+                pontos = (pontos % 3) + 1;
+              }
+            }, 1000);
+          }
+        });
+      }
+
+      function testeLoginEmailInvalido(alertId, testName) {
+        executarTeste(alertId, testName, "/login_email_invalido", "Login - Email Inválido", "Validação de formato de email inválido");
+      }
+
+      function testeLoginUsuarioInvalido(alertId, testName) {
+        executarTeste(alertId, testName, "/login_usuario_invalido", "Login - Usuário Inválido", "Validação de login com usuário/senha inválidos");
+      }
+    </script>
+  </body>
+</html>
