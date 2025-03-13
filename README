@@ -1,3 +1,9 @@
+⚠️ **IMPORTANTE:** Há um vídeo de demonstração disponível em:  
+📂 `public > videos > demo.mp4`
+🎥 **Recomendo fortemente assistir ao vídeo antes de explorar o código**, pois ele mostra todas as funcionalidades implementadas e ajuda a entender melhor as features do projeto. 😉
+
+
+
 📘 Projeto: BugBank - Testes Automatizados
 Este repositório tem como objetivo fornecer uma interface automatizada de testes E2E com Cypress, integrando relatórios visuais, execução via frontend e backend com ExpressJS.
 
